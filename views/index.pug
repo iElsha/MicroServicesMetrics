@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    h1 Micro Services Metric
+    form(method='GET' action='/getMetric')
+        div.input-field
+            label(for='url') URL:
+            input#url.form-control(type='url', placeholder='https://qualitasplaza.com/', name='url')
+        button.btn-submit(type='submit') Valider
+    if url
+        h3= `URL: ${url}`
+    if chips
+        if !chips.length
+            h3="No data found for this website"
+        else
+            div.requirements-container
+                h4=`The website is using Google Analytics ? ${analytics}`
+                h4=`The website is using Google Recaptcha ? ${reCaptcha}`
+            div.chips-container
+                h3 Technologies on the website
+                for chip in chips
+                    a(href=chip.link target="_blank")
+                        div.chip= chip.name
+                            img(src=chip.icon)
+    if errorMessage
+        div.error-message
+            p=errorMessage
